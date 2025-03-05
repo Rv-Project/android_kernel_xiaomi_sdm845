@@ -16,8 +16,6 @@ print_help() {
     echo "  --ursa         compile kernel for ursa (Mi 8 Explorer Edition)"
     echo
     echo "Options:"
-    echo "  --lindroid       with Lindroid support"
-    echo "  --lindroid-ksu   with Lindroid and KernelSU support"
     echo "  --ksu            with KernelSU support"
     echo "  --all            compile with all options for all devices"
     echo
@@ -90,7 +88,7 @@ compile_kernel() {
 
 run_all() {
     devices="beryllium dipper equuleus perseus polaris ursa"
-    configs="mi845_defconfig mi845-ksu_defconfig mi845-lindroid_defconfig mi845-ksu-lindroid_defconfig"
+    configs="mi845_defconfig mi845-ksu_defconfig"
 
     total_start_time=$(date +%s)
 
@@ -102,12 +100,6 @@ run_all() {
                     ;;
                 "mi845-ksu_defconfig")
                     OUTPUT_DIR="RvKernel/ksu/$DEVICE"
-                    ;;
-                "mi845-lindroid_defconfig")
-                    OUTPUT_DIR="RvKernel/lindroid/$DEVICE"
-                    ;;
-                "mi845-ksu-lindroid_defconfig")
-                    OUTPUT_DIR="RvKernel/lindroid-ksu/$DEVICE"
                     ;;
             esac
             compile_kernel $DEVICE $CONFIG $OUTPUT_DIR
@@ -154,14 +146,6 @@ else
         compile_kernel $DEVICE $CONFIG $OUTPUT_DIR
     else
         case "$2" in
-            --lindroid)
-                CONFIG="mi845-lindroid_defconfig"
-                OUTPUT_DIR="RvKernel/lindroid/$DEVICE"
-                ;;
-            --lindroid-ksu)
-                CONFIG="mi845-ksu-lindroid_defconfig"
-                OUTPUT_DIR="RvKernel/lindroid-ksu/$DEVICE"
-                ;;
             --ksu)
                 CONFIG="mi845-ksu_defconfig"
                 OUTPUT_DIR="RvKernel/ksu/$DEVICE"
